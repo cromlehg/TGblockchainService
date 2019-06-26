@@ -1,0 +1,46 @@
+@(blocks: Seq[BDBlock])(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@renderBlock(block: BDBlock) = {
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="media align-items-sm-center mr-4 mb-1 mb-sm-0">
+				<div class="d-none d-sm-flex mr-2">
+					<span class="btn btn-icon btn-soft-secondary">
+						<span class="btn-icon__inner text-dark">Bk</span>
+					</span>
+				</div>
+				<div class="media-body">
+					<span class="d-inline-block d-sm-none">Block</span> <a href="@routes.BlocksController.viewBlock(block.id)">@block.height</a>
+					<span class="d-sm-block small text-secondary ml-1 ml-sm-0 text-nowrap">@block.timestampPrettyTime</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			<div class="d-flex justify-content-between">
+				<div class="text-nowrap">
+					<span class="d-block mb-1 mb-sm-0">Miner @app.components.modifierIdDef(routes.BCAccountsController.viewBCAccount(block.generator).toString, block.generator)</span>
+					<a href="@routes.TxsController.txs" title="Transactions in this Block" >@block.transactions.size</a> <span class="small text-secondary">Txns in 1 sec</span>
+					<span class="d-inline-block d-sm-none">
+						<span class="u-label u-label--xs u-label--badge-in u-label--secondary text-center text-nowrap" title="Block Reward">0<b>.</b>0 Mus</span>
+					</span>
+				</div>
+				<div class="d-none d-sm-block">
+					<span class="u-label u-label--xs u-label--badge-in u-label--secondary text-center text-nowrap" title="Block Reward">0<b>.</b>0 Mus</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr class="hr-space">
+}
+
+<div class="card h-100">
+	<div class="card-header d-flex justify-content-between align-items-center bg-primary text-light">
+		<h2 class="card-header-title h5">Latest Blocks</h2>
+	</div>
+	<div class="card-body overflow-hidden">
+		@for(block <- blocks) { @renderBlock(block) }
+	</div>
+	<div class="card-footer">
+		<a class="btn btn-xs btn-block btn-soft-primary" href="@routes.BlocksController.blocks">View All Blocks</a>
+	</div>
+</div>

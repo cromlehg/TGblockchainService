@@ -1,0 +1,51 @@
+@()(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@app.common.main("blocks") { } {
+	@base.common.components.container() {
+
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<div class="card-header bg-primary text-light">
+						Create new wallet
+					</div>
+					<div class="card-body">
+
+						<form>
+							<div class="form-group">
+								<label for="address-input">Address</label>
+								<input type="text" class="form-control" id="address-input" aria-describedby="address-input-help" placeholder="address" readonly>
+							</div>
+							<div class="form-group">
+								<label for="pk-input">Private key</label>
+								<input type="text" class="form-control" id="pk-input" aria-describedby="pk-input-help" placeholder="private key" readonly>
+							</div>
+							<button id="generate-keypair" type="submit" class="btn btn-outline-primary">generate</button>
+						</form>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	}
+} {
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#generate-keypair').click(function(e){
+				e.preventDefault();
+				$.ajax({
+					url: "@routes.WalletController.generateKeyPair",
+					context: document.body
+				}).done(function(r) {
+					console.log(r.result);
+					$('#address-input').val(r.result.address);
+					$('#pk-input').val(r.result.pk);
+				});
+			});
+		})
+	</script>
+
+}

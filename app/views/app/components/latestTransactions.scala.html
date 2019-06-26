@@ -1,0 +1,48 @@
+@(txs: Seq[BDTransaction])(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@transaction(tx: BDTransaction) = {
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="media align-items-sm-center mr-4 mb-1 mb-sm-0">
+				<div class="d-none d-sm-flex mr-2">
+					<span class="btn btn-icon btn-soft-secondary rounded-circle">
+						<span class="btn-icon__inner text-dark">Tx</span>
+					</span>
+				</div>
+				<div class="media-body">
+					<span class="d-inline-block d-sm-none mr-1">TX#</span>
+					@app.components.modifierIdDef(routes.TxsController.viewTx(tx.id).toString, tx.id)
+					<span class="d-none d-sm-block small text-secondary">@tx.timestampPrettyTime</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			<div class="d-sm-flex justify-content-between">
+				<div class="text-nowrap mr-4 mb-1 mb-sm-0">
+					<span>From @app.components.modifierIdDef(routes.BCAccountsController.viewBCAccount(tx.signer).toString, tx.signer)</span>
+					<span class="d-sm-block">To
+						@tx.recepient.map { r =>
+							@app.components.modifierIdDef(routes.BCAccountsController.viewBCAccount(r).toString, r)
+						}
+					</span>
+				</div>
+				<div>
+					<span class="u-label u-label--xs u-label--badge-in u-label--secondary text-center text-nowrap" title="Amount">@tx.amount Mus</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr class="hr-space">
+}
+
+<div class="card h-100">
+	<div class="card-header d-flex justify-content-between align-items-center bg-primary text-light">
+		<h2 class="card-header-title h5">Transactions</h2>
+	</div>
+	<div class="card-body overflow-hidden" data-bind="latestTxsContainer">
+		@for(tx <- txs) { @transaction(tx) }
+	</div>
+	<div class="card-footer">
+		<a class="btn btn-xs btn-block btn-soft-primary" href="@routes.TxsController.txs">View All Transactions</a>
+	</div>
+</div>

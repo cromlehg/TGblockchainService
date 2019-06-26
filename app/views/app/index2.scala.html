@@ -1,0 +1,56 @@
+@(blocks: Seq[BDBlock], txs: Seq[BDTransaction])(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@app.common.main("index") { } {
+	@base.common.components.container() {
+
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<div class="card-body rounded bg-primary">
+						<form class="form-inline">
+							<div class="input-group" style="width: 100%;">
+								<input id="modifier_for_search" type="text" class="form-control" placeholder="Search by  Txhash / Block hash ">
+								<div class="input-group-append">
+									<button id="search_by_modifier" class="btn btn-outline-light" type="button">search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mb-4"></div>
+		<div class="row">
+			<div class="col-lg-6 mb-4 mb-lg-0" data-bind="latest-blocks">
+				@app.components.latestBlocks(blocks)
+			</div>
+			<div class="col-lg-6" data-bind="latest-txs">
+				@app.components.latestTransactions(txs)
+			</div>
+		</div>
+
+	}
+} {
+	<script src="@routes.Assets.versioned("lib/moment/min/moment.min.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.versioned("lib/moment-duration-format/lib/moment-duration-format.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.versioned("javascripts/latestBlocks.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.versioned("javascripts/latestTransactions.js")" type="text/javascript"></script>
+	<script >
+
+		latestBlocks.init({
+			url: '@routes.BlocksController.latestBlocks',
+			$container: $('[data-bind="latest-blocks"]')
+		});
+
+		latestTransactions.init({
+			url: '@routes.TxsController.latestTxs',
+			$container: $('[data-bind="latest-txs"]')
+		});
+
+		$('#search_by_modifier').click(function(e) {
+			e.preventDefault();
+			window.top.location.href= "/app/modifier/" + $('#modifier_for_search').val();
+		});
+
+	</script>
+}

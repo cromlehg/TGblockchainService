@@ -1,0 +1,13 @@
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/.cache-main
+/.cache-tests
+/.gradle
+/RUNNING_PID
+/bin/
+/conf/application.conf

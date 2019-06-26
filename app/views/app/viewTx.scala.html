@@ -1,0 +1,84 @@
+@(id: String, txOpt: Option[BDTransaction], block: Option[BDBlock])(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@app.common.main("View transaction") { } {
+	@base.common.components.container() {
+
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<div class="card-header bg-primary text-light">
+						View transaction @app.components.modifierIdFull(routes.TxsController.viewTx(id).toString, id)
+					</div>
+					<div class="card-body">
+						@txOpt.fold {
+							<p>Transaction not found in blockchain.</p>
+							<p>May be tx not mined yet. Please wait 20 second and refresh page!</p>
+						} { tx =>
+							@block.fold {
+								<p>Transaction in mempool. Not mined yet!</p>
+							} { block =>
+								<table>
+									<tbody>
+										<tr>
+											<td>id</td>
+											<td>@app.components.modifierIdFull(routes.TxsController.viewTx(id).toString, id)</td>
+										</tr>
+										<tr>
+											<td>timestamp</td>
+											<td>@tx.timestampPrettyTime</td>
+										</tr>
+										<tr>
+											<td>block id</td>
+											<td>@app.components.modifierIdFull(routes.BlocksController.viewBlock(tx.blockId).toString, tx.blockId)</td>
+										</tr>
+										<tr>
+											<td>block height</td>
+											<td>@tx.blockHeight</td>
+										</tr>
+										<tr>
+											<td>nonce</td>
+											<td>@tx.nonce</td>
+										</tr>
+										<tr>
+											<td>signer</td>
+											<td>@app.components.modifierIdFull(routes.BCAccountsController.viewBCAccount(tx.signer).toString, tx.signer)</td>
+										</tr>
+										<!--<tr>
+											<td>signature</td>
+											<td>@tx.signature</td>
+										</tr>-->
+										<tr>
+											<td>kind</td>
+											<td>@tx.kind</td>
+										</tr>
+										@tx.recepient.map { recipient =>
+											<tr>
+												<td>recipient</td>
+												<td>@app.components.modifierIdFull(routes.BCAccountsController.viewBCAccount(recipient).toString, recipient)</td>
+											</tr>
+										}
+										@tx.amount.map { amount =>
+											<tr>
+												<td>amount</td>
+												<td>@amount mus</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							}
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	}
+} {
+	@if(txOpt.isEmpty) {
+		<script>
+			setInterval(function() {
+				window.location.reload();
+			}, 10000);
+		</script>
+	}
+}

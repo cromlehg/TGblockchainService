@@ -1,0 +1,68 @@
+@(id: String, blockOpt: Option[BDBlock])(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@app.common.main("View block") { } {
+	@base.common.components.container() {
+
+		@app.components.cardContainer {
+			View block @app.components.modifierIdFull(routes.BlocksController.viewBlock(id).toString, id)
+		} {
+			@blockOpt.fold {
+				<p>Block not found in blockchain.</p>
+				<p>May be block not received from blockchain. Please wait 20 second and refresh page!</p>
+			} { block =>
+				<table>
+					<tbody>
+						<tr>
+							<td>id</td>
+							<td>@app.components.modifierIdFull(routes.BlocksController.viewBlock(id).toString, id)</td>
+						</tr>
+						<tr>
+							<td>timestamp</td>
+							<td>@block.timestampPrettyTime</td>
+						</tr>
+						<tr>
+							<td>block height</td>
+							<td>@block.height</td>
+						</tr>
+						<tr>
+							<td>version</td>
+							<td>@block.version</td>
+						</tr>
+						<tr>
+							<td>parent id</td>
+							<td>@app.components.modifierIdFull(routes.BlocksController.viewBlock(block.parentId).toString, block.parentId)</td>
+						</tr>
+						<tr>
+							<td>generator</td>
+							<td>@app.components.modifierIdFull(routes.BCAccountsController.viewBCAccount(block.generator).toString, block.generator)</td>
+						</tr>
+							<!--<tr>
+											<td>signature</td>
+											<td>@block.signature</td>
+						</tr>-->
+						<tr>
+							<td>transactions count</td>
+							<td>@block.transactions.length</td>
+						</tr>
+					</tbody>
+				</table>
+			}
+		}
+
+		@blockOpt.map { block =>
+			@if(block.transactions.nonEmpty) {
+				<div class="mt-3"></div>
+				@app.components.txsTableCard("txs-table", false) {
+					Block transactions
+				} {
+					@app.components.pagparts.txsListPage(block.transactions)
+				}
+			}
+		}
+
+	}
+} {
+	<script>
+		// must automatically refresh every 10 second
+	</script>
+}

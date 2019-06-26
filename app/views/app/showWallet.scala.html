@@ -1,0 +1,32 @@
+@(inForm: Form[_], bcAccount: BCAccount)(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@implicitVerticalFC = @{ b4.vertical.fieldConstructor() }
+
+@app.common.main("blocks") { } {
+	@base.common.components.container() {
+
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<div class="card-header bg-primary text-light">
+						Wallet
+					</div>
+					<div class="card-body">
+						<p>You have @bcAccount.amount techgen</p>
+						@b4.form(routes.WalletController.processTransfer) {
+							@b4.text( inForm("address"), '_label -> "From", 'readonly -> true)
+							@b4.text( inForm("to"), '_label -> "To" )
+							@b4.text( inForm("amount"), '_label -> "Amount" )
+							@b4.text( inForm("pk"), '_label -> "Private key" )
+							@b4.submit('_class -> "mt-5", 'class -> "btn btn-outline-primary btn-block"){ Send }
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	}
+} {
+
+
+}

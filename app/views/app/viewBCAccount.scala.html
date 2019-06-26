@@ -1,0 +1,43 @@
+@(id: String, bcAccount: BCAccount)(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@app.common.main("View account") { } {
+	@base.common.components.container() {
+
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<div class="card-header bg-primary text-light">
+						View account @app.components.modifierIdFull(routes.BCAccountsController.viewBCAccount(id).toString, id)
+					</div>
+					<div class="card-body">
+						<table>
+							<tbody>
+								<tr>
+									<td>address</td>
+									<td>@app.components.modifierIdFull(routes.BCAccountsController.viewBCAccount(id).toString, id)</td>
+								</tr>
+								@bcAccount.name.map { name =>
+									<tr>
+										<td>name</td>
+										<td>@app.components.modifierIdFull(routes.BCAccountsController.viewBCAccount(id).toString, name)</td>
+									</tr>
+								}
+								<tr>
+									<td>amount</td>
+									<td>@bcAccount.amount techgen</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	}
+} {
+	<script>
+		setInterval(function() {
+			window.location.reload();
+		}, 10000);
+	</script>
+}

@@ -1,0 +1,18 @@
+@(tableId: String, headers: Seq[String], tableClasses: String, columnClasses: String, needsPagControls: Boolean)(predefinedContent: Html)
+
+@if(needsPagControls) {
+	@admin.common.rowSingleColumn(columnClasses) {
+		@admin.common.tablePagCtrlGroup(tableId)
+	}
+}
+@admin.common.rowSingleColumn(columnClasses) {
+  @admin.common.table(tableId, headers, tableClasses)(predefinedContent)
+}
+
+@if(needsPagControls) {
+	@admin.common.rowSingleColumn(columnClasses) {
+		@admin.common.tablePagCtrlGroup(tableId)
+	}
+}
+
+ 

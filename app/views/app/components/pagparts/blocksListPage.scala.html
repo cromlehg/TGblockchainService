@@ -1,0 +1,13 @@
+@(blocks: Seq[models.BDBlock])(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@blocks.map { block =>
+  <tr>
+		<td>@app.components.modifierIdDef(routes.BlocksController.viewBlock(block.id).toString, block.id)</td>
+    <td>@block.height</td>
+    <td>@block.timestampPrettyTime</td>
+    <td>@block.transactions.length</td>
+    <td>@app.components.modifierIdDef(routes.BCAccountsController.viewBCAccount(block.generator).toString, block.generator)</td>
+  </tr>
+}
+
+

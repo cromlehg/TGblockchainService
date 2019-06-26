@@ -1,0 +1,11 @@
+@(id: String, needsPagControls: Boolean)(predefinedContent: Html)(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@admin.common.tableWithPagControls(
+	id,
+	Seq("TxHash", "Block", "Age", "From", "To", "Amount"),
+	"table table-hover",
+	"col-12",
+	needsPagControls) {
+	@predefinedContent
+}
+

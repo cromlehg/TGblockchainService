@@ -1,0 +1,22 @@
+@(txs: Seq[models.BDTransaction])(implicit flash: Flash, messages: Messages, ac: controllers.AppContext, req: play.api.mvc.RequestHeader)
+
+@txs.map { tx =>
+  <tr>
+    <td>@app.components.modifierIdDef(routes.TxsController.viewTx(tx.id).toString, tx.id)</td>
+		<td>@app.components.modifierIdDef(routes.BlocksController.viewBlock(tx.blockId).toString, tx.blockId)</td>
+		<td>@tx.timestamp</td>
+    <td>@app.components.modifierIdDef(routes.BCAccountsController.viewBCAccount(tx.signer).toString, tx.signer)</td>
+		<td>
+		@tx.recepient.map { r =>
+			@app.components.modifierIdDef(routes.BCAccountsController.viewBCAccount(r).toString, r)
+		}
+		</td>
+		<td>
+		@tx.amount.map { amount =>
+			@amount techgen
+		}
+		</td>
+  </tr>
+}
+
+
