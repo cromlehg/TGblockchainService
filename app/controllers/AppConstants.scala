@@ -5,7 +5,7 @@ import play.api.data.Forms._
 
 object AppConstants {
 
-  val APP_NAME = "BlockWit"
+  val APP_NAME = "TechGen"
 
   val VERSION = "0.1a"
 
