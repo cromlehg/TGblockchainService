@@ -21,12 +21,13 @@
         @customMainMenu(ac.mainMenu, active)
       </ul>
       <ul class="navbar-nav ml-auto">
-        @ac.authorizedOpt.fold {
+@*        @ac.authorizedOpt.fold {
           @base.common.menuItem(active, messages("app.header.menu.signup")     , routes.AccountsController.registerUser.toString, Some("user-plus"))
           @base.common.menuItem(active, messages("app.header.menu.signin")     , routes.AccountsController.login.toString, Some("sign-in-alt"))
         } { actor =>
           @base.common.menuItem(active, messages("app.header.menu.logout")     , routes.AccountsController.logout.toString, Some("sign-out-alt"))
         }
+	*@
       </ul>
     </div>
   </div>
