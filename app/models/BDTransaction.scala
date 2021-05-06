@@ -23,6 +23,8 @@ case class BDTransaction(val id: String,
 		case _ => false
 	}
 
+//  override def toString =
+  //  "BDTransaction(" + id + ")"
 
 }
 

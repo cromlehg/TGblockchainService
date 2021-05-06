@@ -26,8 +26,6 @@ class AccountsControllerSpec() extends PlaySpec with GuiceOneAppPerTest with Inj
 
       status(result) mustBe BAD_REQUEST
 
-      // FIXME: Why not works?
-      //flash(result).get("error") mustBe Some(message("app.login.error"))
       contentType(result) mustBe Some("text/html")
 
       contentAsString(result) must include("login")
