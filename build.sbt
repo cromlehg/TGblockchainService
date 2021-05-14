@@ -28,7 +28,7 @@ libraryDependencies ++= Seq(
   "com.github.t3hnar" %% "scala-bcrypt" % "3.1",
   "org.webjars.bower" % "jquery" % "3.3.1",
   "org.webjars" % "bootstrap" % "4.1.0",
-  "com.adrianhurt" %% "play-bootstrap" % "1.4-P26-B4-SNAPSHOT",
+  "com.adrianhurt" %% "play-bootstrap" % "1.4-P26-B4",
   "org.jsoup" % "jsoup" % "1.11.2",
   "com.typesafe.play" %% "play-slick" % "3.0.1",
   "mysql" % "mysql-connector-java" % "6.0.5",
