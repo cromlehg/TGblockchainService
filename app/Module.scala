@@ -7,8 +7,10 @@ import play.api.{Configuration, Environment}
 import security.BaseHandlerCache
 import services.{MBService, MBServiceImpl, MailGunMailer, Mailer}
 
-class Module(environment: Environment,
-						 configuration: Configuration) extends AbstractModule {
+class Module(
+	environment: Environment,
+	configuration: Configuration
+) extends AbstractModule {
 
 	override def configure(): Unit = {
 		bind(classOf[HandlerCache]).to(classOf[BaseHandlerCache])
