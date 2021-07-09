@@ -1,5 +1,5 @@
-# TechGen Service - web-service for TechGen blockchain
-![TechGen](logo.png "TechGen")
+# TGblockchain Service - web-service for TGblockchain blockchain
+![TGblockchain](logo.png "TechGen")
 
-Tech gen explorer for blockchain
+TGblockchain explorer for blockchain
 
